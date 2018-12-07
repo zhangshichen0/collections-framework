@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="log.default_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%X{traceId}|%logger{1}|%msg%n"/>
+    <property name="log.default_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%t|%logger{1}|%msg%n"/>
     <property name="log.default_max_history" value="14"/>
     <property name="log.default_charset" value="UTF-8"/>
     <property name="log.home" value="logs"/>
