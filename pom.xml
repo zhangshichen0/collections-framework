@@ -11,6 +11,7 @@
     <properties>
         <spring-boot-version>2.1.0.RELEASE</spring-boot-version>
         <apollo-version>1.1.2</apollo-version>
+        <lombok-version>1.18.4</lombok-version>
     </properties>
 
     <profiles>
@@ -142,6 +143,15 @@
             <version>${apollo-version}</version>
         </dependency>
         <!-- 分布式配置中心配置 Apollo end -->
+
+        <!-- 自动生成get set start -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 自动生成get set end -->
 
     </dependencies>
 </project>
