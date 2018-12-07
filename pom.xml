@@ -13,6 +13,105 @@
         <apollo-version>1.1.2</apollo-version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <resources.dir>dev</resources.dir>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>pro</id>
+            <properties>
+                <resources.dir>pro</resources.dir>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources/commons/sql</directory>
+                <targetPath>sql</targetPath>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources/${resources.dir}</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!--支持定制化打包方式-->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <finalName>collections-framework</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <!--assembly.xml配置文件内指定打包操作 打包的描述文件-->
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--将项目打成jar包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>*.properties</exclude>
+                        <exclude>*.xml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!-- 编译 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <!-- Java源代码兼容的JVM版本 -->
+                    <source>1.8</source>
+                    <!--编译后的类库拟运行的JVM版本-->
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- 生成源代码jar包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <!-- 进行package命令时就可以将源码同时进行打包 -->
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal><!-- 类似执行mvn source:jar -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
 
         <!-- springboot相关依赖 start -->
