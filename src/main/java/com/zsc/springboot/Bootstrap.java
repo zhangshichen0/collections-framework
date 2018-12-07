@@ -1,6 +1,5 @@
 package com.zsc.springboot;
 
-import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -11,7 +10,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @desc
  */
 @SpringBootApplication(scanBasePackages = "com.zsc.springboot")
-@EnableApolloConfig
 @EnableConfigurationProperties
 public class Bootstrap {
 
