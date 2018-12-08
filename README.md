@@ -8,5 +8,4 @@
 * **演示了springboot和xxl-job结合使用**
     *
 * **演示spring使用DeferredResult实现长轮询**
-
-[]: https://github.com/ctripcorp/apollo-use-cases
+    *
