@@ -15,6 +15,7 @@
         <lombok-version>1.18.4</lombok-version>
         <slf4j-version>1.7.25</slf4j-version>
         <logback-version>1.2.3</logback-version>
+        <fastjson-version>1.2.54</fastjson-version>
     </properties>
 
     <profiles>
@@ -237,5 +238,12 @@
             <version>2.0.1</version>
         </dependency>
         <!-- 定时任务框架 end -->
+
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson-version}</version>
+        </dependency>
     </dependencies>
 </project>
