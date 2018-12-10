@@ -11,7 +11,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -29,7 +28,6 @@ import java.util.List;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @EnableScheduling
-@EnableTransactionManagement
 public class Bootstrap extends WebMvcConfigurationSupport {
 
     public static void main(String[] args) {
