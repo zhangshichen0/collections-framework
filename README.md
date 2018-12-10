@@ -10,5 +10,8 @@
         * [elastic-job](https://github.com/elasticjob/elastic-job-lite)是轻量级无中心化的分布式定时任务解决方案，依赖于zookeeper实现服务注册，分布式调度，主节点选举等功能
         * [xxl-job](https://github.com/xuxueli/xxl-job)是有中心化的分布式定时任务解决方案，依赖于quartz原生集群支持，实现任务调度，将调度与执行器分离，调度器和执行器之间使用rpc方式调用
     
-* **演示spring使用DeferredResult实现长轮询**
+* **演示spring使用[DeferredResult](https://www.cnblogs.com/shihaiming/p/5856477.html)实现长轮询**
     * 实时通知解决方案
+        * 即使用长轮询方式实现
+    * 耗时请求异步处理--返回结果依赖于异步处理的结果
+        * 能够及时的释放Servlet容器线程，让其处理更多的请求，
