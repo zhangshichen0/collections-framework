@@ -36,6 +36,7 @@ public class NotificationController {
             json.put("count", 1);
             result.setData(json);
             deferredResultWrapper.setResult(result);
+            log.info("【异步处理长轮询结果】biz thread process completed");
         }), 10, 10, TimeUnit.SECONDS);
     }
 
@@ -47,6 +48,7 @@ public class NotificationController {
      */
     @GetMapping
     public DeferredResult<Result<Object>> pollNotification(long uid) {
+        log.info("【长轮询】servlet thread enter");
         DeferredResultWrapper deferredResultWrapper = new DeferredResultWrapper();
 
         deferredResultWrapper.onTimeout(() -> {
@@ -58,6 +60,7 @@ public class NotificationController {
         });
 
         deferredResults.put(String.valueOf(uid), deferredResultWrapper);
+        log.info("【长轮询】servlet thread released");
         return deferredResultWrapper.getResult();
     }
 
