@@ -2,11 +2,17 @@ package com.zsc.springboot.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zsc.springboot.commons.Result;
+import com.zsc.springboot.commons.SwaggerParamType;
 import com.zsc.springboot.utils.CfThreadFactory;
 import com.zsc.springboot.utils.DeferredResultWrapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -19,6 +25,7 @@ import java.util.concurrent.*;
  * @create 2018-12-07
  * @desc 此类按照restful规范开发
  */
+@Api(value = "NotificationController|通知", tags = {"通知"})
 @Slf4j
 @RestController
 @RequestMapping(value = "/collections-framework/api/notification", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -46,8 +53,12 @@ public class NotificationController {
      * @param uid
      * @return
      */
-    @GetMapping
-    public DeferredResult<Result<Object>> pollNotification(long uid) {
+    @ApiOperation(value="根据用户编号获取通知信息", notes="必须是用户uid")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType= SwaggerParamType.PATH, name = "uid", value = "用户id", required = true, dataType = "Long", defaultValue = "1")
+    })
+    @GetMapping("{uid}")
+    public DeferredResult<Result<Object>> pollNotification(@PathVariable long uid) {
         log.info("【长轮询】servlet thread enter");
         DeferredResultWrapper deferredResultWrapper = new DeferredResultWrapper();
 

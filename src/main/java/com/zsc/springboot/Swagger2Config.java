@@ -42,7 +42,7 @@ public class Swagger2Config {
         parameterBuilder.name("Authentication")
                 .description("token")
                 .modelRef(new ModelRef("string"))
-                .parameterType(SwaggerParamType.HEADER.getValue())
+                .parameterType(SwaggerParamType.HEADER)
                 .defaultValue("1")
                 .required(true)
                 .build();

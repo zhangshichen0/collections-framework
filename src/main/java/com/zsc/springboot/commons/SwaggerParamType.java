@@ -5,21 +5,10 @@ package com.zsc.springboot.commons;
  * @create 2018-12-11
  * @desc
  */
-public enum SwaggerParamType {
-    HEADER("header"),
-    QUERY("query"),
-    PATH("path"),
-    //不常用
-    BODY("body"),
-    //不常用
-    FORM("form");
-
-    private String value;
-
-    SwaggerParamType(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }}
+public final class SwaggerParamType {
+    public static final String HEADER = "header";
+    public static final String QUERY = "query";
+    public static final String PATH = "path";
+    public static final String BODY = "body";
+    public static final String FORM = "form";
+}
