@@ -1,6 +1,7 @@
 package com.zsc.springboot;
 
 import com.zsc.springboot.commons.Result;
+import com.zsc.springboot.commons.SwaggerParamType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -41,7 +42,7 @@ public class Swagger2Config {
         parameterBuilder.name("Authentication")
                 .description("token")
                 .modelRef(new ModelRef("string"))
-                .parameterType("header")
+                .parameterType(SwaggerParamType.HEADER.getValue())
                 .defaultValue("1")
                 .required(true)
                 .build();
