@@ -4,17 +4,20 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.google.common.collect.Lists;
+import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.env.Profiles;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.filter.FormContentFilter;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +31,9 @@ import java.util.List;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @EnableScheduling
-public class Bootstrap extends WebMvcConfigurationSupport {
+public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
 
     public static void main(String[] args) {
         SpringApplication.run(Bootstrap.class, args);
@@ -40,7 +45,7 @@ public class Bootstrap extends WebMvcConfigurationSupport {
      * @param converters
      */
     @Override
-    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 
         //删除所有支持application/json的converter
         for (int i = converters.size() - 1; i >=0; i ++) {
@@ -67,8 +72,7 @@ public class Bootstrap extends WebMvcConfigurationSupport {
      * @param registry
      */
     @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
-        super.addInterceptors(registry);
+    public void addInterceptors(InterceptorRegistry registry) {
     }
 
     /**
@@ -77,7 +81,36 @@ public class Bootstrap extends WebMvcConfigurationSupport {
      * @param registry
      */
     @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        super.addResourceHandlers(registry);
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //swagger静态页面和样式加载，只在激活的profile包含swagger时，才加载资源文件
+        if (applicationContext.getEnvironment().acceptsProfiles(Profiles.of("swagger"))) {
+            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        }
+    }
+
+    @Bean
+    public FormContentFilter httpPutFormContentFilter() {
+        return new FormContentFilter();
+    }
+
+    /**
+     * 配置跨域请求相关参数
+     *
+     * @param registry
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/collections-framework/api/**")
+                .allowedOrigins("*")
+                .allowCredentials(true)
+                .allowedHeaders("*")
+                .allowedMethods("*")
+                .maxAge(3600);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
