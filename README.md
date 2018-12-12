@@ -16,8 +16,9 @@
     * 耗时请求异步处理--返回结果依赖于异步处理的结果
         * 能够及时的释放Servlet容器线程，让其处理更多的请求
         
-* **集成swagger2作为api测试工具，替代postman**
+* **集成[swagger2](https://github.com/springfox/springfox)作为api测试工具，替代postman**
     * swagger2能够自动扫描指定包下的api，生成api文档
     * 项目中指定，只有激活的profile中包含swagger时，才加载swagger2资源文件并初始化Swagger2Config Bean
+    * [swagger2注解说明](https://github.com/swagger-api/swagger-core/wiki/Annotations)
     * **问题**
         * 本项目集成为spring-boot2.1.0RELEASE + swagger2.9.2,但是spring-boot2.*以上，只能实现WebMvcConfigurer并实现方法addResourceHandlers才能够加载swagger2资源文件😓，解决方案：[springboot2.x以上集成swagger2出现404解决](https://www.jianshu.com/p/04dd5ff82dad)

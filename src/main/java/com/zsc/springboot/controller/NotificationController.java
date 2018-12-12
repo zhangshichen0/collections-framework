@@ -2,7 +2,7 @@ package com.zsc.springboot.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zsc.springboot.commons.Result;
-import com.zsc.springboot.commons.SwaggerParamType;
+import com.zsc.springboot.commons.swagger2.SwaggerParamType;
 import com.zsc.springboot.utils.CfThreadFactory;
 import com.zsc.springboot.utils.DeferredResultWrapper;
 import io.swagger.annotations.Api;

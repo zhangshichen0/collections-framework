@@ -1,7 +1,7 @@
 package com.zsc.springboot;
 
 import com.zsc.springboot.commons.Result;
-import com.zsc.springboot.commons.SwaggerParamType;
+import com.zsc.springboot.commons.swagger2.SwaggerParamType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -52,6 +52,8 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .genericModelSubstitutes(Result.class)
                 .globalOperationParameters(parameters)
+                .useDefaultResponseMessages(false)
+                .pathMapping("/")
                 .select()
                 //为当前包路径
                 .apis(RequestHandlerSelectors.basePackage("com.zsc.springboot.controller"))

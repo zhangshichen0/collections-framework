@@ -1,4 +1,4 @@
-package com.zsc.springboot.commons;
+package com.zsc.springboot.commons.swagger2;
 
 /**
  * @author shichen
