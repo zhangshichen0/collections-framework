@@ -38,6 +38,21 @@
         </profile>
     </profiles>
 
+    <repositories>
+
+        <repository>
+            <id>unidal.releases</id>
+            <url>http://unidal.org/nexus/content/repositories/releases/</url>
+        </repository>
+
+        <repository>
+            <id>central</id>
+            <name>Maven2 Central Repository</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+
     <build>
 
         <resources>
@@ -296,6 +311,16 @@
         </dependency>
         <!-- 集成swagger2 end -->
 
-
+        <dependency>
+            <groupId>com.dianping.cat</groupId>
+            <artifactId>cat-client</artifactId>
+            <version>3.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>gson</artifactId>
+                    <groupId>com.google.code.gson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 </project>
