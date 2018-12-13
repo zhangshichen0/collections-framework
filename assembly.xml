@@ -27,6 +27,7 @@
         <fileSet>
             <directory>${project.basedir}/src/main/shell</directory>
             <outputDirectory>bin</outputDirectory>
+            <fileMode>755</fileMode>
             <includes>
                 <include>*</include>
             </includes>
