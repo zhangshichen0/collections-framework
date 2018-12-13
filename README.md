@@ -22,3 +22,7 @@
     * [swagger2注解说明](https://github.com/swagger-api/swagger-core/wiki/Annotations)
     * **问题**
         * 本项目集成为spring-boot2.1.0RELEASE + swagger2.9.2,但是spring-boot2.*以上，只能实现WebMvcConfigurer并实现方法addResourceHandlers才能够加载swagger2资源文件😓，解决方案：[springboot2.x以上集成swagger2出现404解决](https://www.jianshu.com/p/04dd5ff82dad)
+    
+* **集成[cat(Central Application Trace)](https://github.com/dianping/cat)作为日志收集工具，便于排查问题**    
+    * cat在没有cat服务端的情况下，并不影响服务的正常运行
+    * cat是由大众点评开源，用来记录并分析日志生成报表，便于追查问题的工具
