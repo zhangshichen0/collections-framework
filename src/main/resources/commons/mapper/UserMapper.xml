@@ -23,4 +23,8 @@
         uid, nick, photo, age, gender, points, phone, create_time, modify_time, status, has_ticket, is_validated
     </sql>
 
+    <!-- 分页查询 -->
+    <select id="selectPageVo" resultType="user">
+    SELECT * FROM user WHERE status=#{status}
+</select>
 </mapper>

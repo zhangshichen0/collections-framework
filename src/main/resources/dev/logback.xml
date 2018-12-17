@@ -78,7 +78,7 @@
         <appender-ref ref="request"/>
     </logger>
 
-    <logger name="com.baomidou.mybatisplus.extension.plugins" level="DEBUG" additivity="false">
+    <logger name="com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor" level="DEBUG" additivity="false">
         <appender-ref ref="db_info" />
         <appender-ref ref="console" />
     </logger>
