@@ -1,5 +1,6 @@
 package com.zsc.springboot.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsc.springboot.model.User;
@@ -48,6 +49,16 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         Page<User> page = new Page<>(next / limit + 1, limit);
         IPage<User> pageVo = userMapper.selectPageVo(page, status);
         return pageVo.getRecords();
+    }
+
+    /**
+     * 使用lambda表达式
+     *
+     * @param nick
+     * @return
+     */
+    public User selectUserByNick(String nick) {
+        return userMapper.selectOne(new QueryWrapper<User>().lambda().eq(User::getNick, nick).select(User::getUid, User::getNick));
     }
 
     /**
