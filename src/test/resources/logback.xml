@@ -26,7 +26,7 @@
     </appender>
 
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 快速过滤，不产生LoggingEvent事件，过滤大于等于warn级别的日志 -->
+        <!-- 快速过滤，不产生LoggingEvent事件，过滤大于等于ERROR级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
@@ -78,7 +78,7 @@
         <appender-ref ref="request"/>
     </logger>
 
-    <logger name="db_info" level="INFO" additivity="false">
+    <logger name="com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor" level="DEBUG" additivity="false">
         <appender-ref ref="db_info" />
         <appender-ref ref="console" />
     </logger>
