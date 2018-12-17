@@ -15,6 +15,11 @@ public class UserServiceTest extends BaseTest {
     @Autowired
     private UserService userService;
 
+    @Test
+    public void testGetByNick() {
+        userService.getUserByNick("江强");
+    }
+
     /**
      * 测试插入
      *

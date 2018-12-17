@@ -26,3 +26,6 @@
 * **集成[cat(Central Application Trace)](https://github.com/dianping/cat)作为日志收集工具，便于排查问题**    
     * cat在没有cat服务端的情况下，并不影响服务的正常运行
     * cat是由大众点评开源，用来记录并分析日志生成报表，便于追查问题的工具
+    
+* **利用[mybatis-plus](https://mybatis.plus/)继承[mybatis](http://www.mybatis.org/mybatis-3/zh/index.html)**
+    * **CodeGenerator.java**为mybatis-plus提供的代码生成器，能够按照用户指定策略将文件生成到指定包下

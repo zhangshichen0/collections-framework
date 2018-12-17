@@ -26,6 +26,16 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     private UserMapper userMapper;
 
     /**
+     * 测试注解的get方法
+     *
+     * @param nick
+     * @return
+     */
+    public User getUserByNick(String nick) {
+        return userMapper.getUserByNick(nick);
+    }
+
+    /**
      * 获取分页
      *
      * @param next
