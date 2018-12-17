@@ -1,7 +1,5 @@
 package com.zsc.springboot.test.controller;
 
-import com.zsc.springboot.commons.Result;
-import com.zsc.springboot.model.User;
 import com.zsc.springboot.test.BaseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
