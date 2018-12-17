@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsc.springboot.dao.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zsc.springboot.model.User">
+        <id column="uid" property="uid" />
+        <result column="nick" property="nick" />
+        <result column="photo" property="photo" />
+        <result column="age" property="age" />
+        <result column="gender" property="gender" />
+        <result column="points" property="points" />
+        <result column="phone" property="phone" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="status" property="status" />
+        <result column="has_ticket" property="hasTicket" />
+        <result column="is_validated" property="isValidated" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        uid, nick, photo, age, gender, points, phone, create_time, modify_time, status, has_ticket, is_validated
+    </sql>
+
+</mapper>

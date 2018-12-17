@@ -3,10 +3,12 @@ package com.zsc.springboot.jdbc;
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -20,7 +22,7 @@ import java.sql.SQLException;
 @Slf4j
 @Component
 @PropertySource("classpath:application-db.properties")
-public class DataSourceConfig {
+public class DBConfig {
 
     @Autowired
     private Environment env;
@@ -79,5 +81,16 @@ public class DataSourceConfig {
         }
 
         return dataSource;
+    }
+
+    /**
+     * 声明事务管理
+     *
+     * @param ds
+     * @return
+     */
+    @Bean
+    public DataSourceTransactionManager transactionManager(@Qualifier("masterDb") DataSource ds) {
+        return new DataSourceTransactionManager(ds);
     }
 }
