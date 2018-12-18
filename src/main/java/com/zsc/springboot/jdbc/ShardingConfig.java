@@ -1,9 +1,8 @@
 package com.zsc.springboot.jdbc;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.collect.Lists;
+import com.zsc.springboot.utils.DataSourceUtils;
 import io.shardingsphere.api.algorithm.masterslave.MasterSlaveLoadBalanceAlgorithmType;
-import io.shardingsphere.api.algorithm.masterslave.RandomMasterSlaveLoadBalanceAlgorithm;
 import io.shardingsphere.api.config.MasterSlaveRuleConfiguration;
 import io.shardingsphere.api.config.ShardingRuleConfiguration;
 import io.shardingsphere.core.constant.properties.ShardingPropertiesConstant;
@@ -87,31 +86,10 @@ public class ShardingConfig {
      * @return
      */
     private static DataSource createDataSource(Environment env, String dataSourceName) {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setMaxActive(env.getProperty("datasource.maxActive", Integer.class));
-        dataSource.setInitialSize(env.getProperty("datasource.initialSize", Integer.class));
-        dataSource.setMaxWait(env.getProperty("datasource.maxWaitMillis", Integer.class));
-        dataSource.setMinIdle(env.getProperty("datasource.minIdle", Integer.class));
-        dataSource.setTimeBetweenEvictionRunsMillis(env.getProperty("datasource.timeBetweenEvictionRunsMillis", Integer.class));
-        dataSource.setMinEvictableIdleTimeMillis(env.getProperty("datasource.minEvictableIdleTimeMillis", Integer.class));
-        dataSource.setValidationQuery(env.getProperty("datasource.validationQuery"));
-        dataSource.setTestWhileIdle(env.getProperty("datasource.testWhileIdle", Boolean.class));
-        dataSource.setTestOnBorrow(env.getProperty("datasource.testOnBorrow", Boolean.class));
-        dataSource.setTestOnReturn(env.getProperty("datasource.testOnReturn", Boolean.class));
-
         String url = env.getProperty("sharding.jdbc.datasource." + dataSourceName + ".url");
         String userName = env.getProperty("sharding.jdbc.datasource." + dataSourceName + ".username");
         String password = env.getProperty("sharding.jdbc.datasource." + dataSourceName + ".password");
-        dataSource.setUrl(url);
-        dataSource.setUsername(userName);
-        dataSource.setPassword(password);
-        try {
-            dataSource.setFilters("wall,stat,slf4j");
-        } catch (SQLException e) {
-            log.error("【初始化数据源】init datasource error", e);
-        }
-
-        return dataSource;
+        return DataSourceUtils.createDataSource(env, url, userName, password);
     }
 
     /**
