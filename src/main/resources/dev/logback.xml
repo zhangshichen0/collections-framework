@@ -83,4 +83,9 @@
         <appender-ref ref="console" />
     </logger>
 
+    <logger name="Sharding-Sphere-SQL" level="INFO" additivity="false">
+        <appender-ref ref="db_info" />
+        <appender-ref ref="console" />
+    </logger>
+
 </configuration>

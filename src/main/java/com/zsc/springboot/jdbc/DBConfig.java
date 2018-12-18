@@ -20,8 +20,8 @@ import java.sql.SQLException;
  * @desc
  */
 @Slf4j
-@Component
-@PropertySource("classpath:application-db.properties")
+//@Component
+//@PropertySource("classpath:application-db.properties")
 public class DBConfig {
 
     @Autowired

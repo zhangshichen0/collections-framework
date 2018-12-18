@@ -368,6 +368,13 @@
             <artifactId>sharding-core</artifactId>
             <version>3.0.0</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         <!-- end -->
 
         <!-- 集成mybatis-plus -->
