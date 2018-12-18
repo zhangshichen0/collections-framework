@@ -2,12 +2,15 @@ package com.zsc.springboot.jdbc;
 
 import com.google.common.collect.Lists;
 import com.zsc.springboot.utils.DataSourceUtils;
+import io.shardingsphere.api.algorithm.masterslave.MasterSlaveLoadBalanceAlgorithm;
 import io.shardingsphere.api.algorithm.masterslave.MasterSlaveLoadBalanceAlgorithmType;
 import io.shardingsphere.api.config.MasterSlaveRuleConfiguration;
 import io.shardingsphere.api.config.ShardingRuleConfiguration;
 import io.shardingsphere.core.constant.properties.ShardingPropertiesConstant;
+import io.shardingsphere.shardingjdbc.api.MasterSlaveDataSourceFactory;
 import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -59,11 +62,33 @@ public class ShardingConfig {
      * @return
      */
     private List<MasterSlaveRuleConfiguration> getMasterSlaveRuleConfigurations(Environment env) {
-        String master0 = env.getProperty("sharding.jdbc.datasource.master0.name");
-        String master0Slaves = env.getProperty("sharding.jdbc.datasource.master0slaves.names");
-        MasterSlaveRuleConfiguration masterSlaveRuleConfig1 = new MasterSlaveRuleConfiguration("ds_0", master0, Arrays.asList(master0Slaves.split(",")));
-        masterSlaveRuleConfig1.setLoadBalanceAlgorithm(MasterSlaveLoadBalanceAlgorithmType.ROUND_ROBIN.getAlgorithm());
-        return Lists.newArrayList(masterSlaveRuleConfig1);
+        //所有的主库列表
+        String masterNames = env.getProperty("sharding.jdbc.datasource.master.names");
+        List<MasterSlaveRuleConfiguration> masterSlaveRuleConfigurations = Lists.newArrayList();
+        Arrays.stream(masterNames.split(",")).forEach(master -> {
+            String masterSlaves = env.getProperty("sharding.jdbc.datasource.slave." + master + ".names");
+            MasterSlaveRuleConfiguration masterSlaveRuleConfig = new MasterSlaveRuleConfiguration("ds_" + master, master, Arrays.asList(masterSlaves.split(",")));
+
+            MasterSlaveLoadBalanceAlgorithm masterSlaveLoadBalanceAlgorithm = MasterSlaveLoadBalanceAlgorithmType.getDefaultAlgorithmType().getAlgorithm();
+            String masterSlaveLoadBalanceAlgorithmType = env.getProperty("sharding.jdbc.config.sharding.master-slave-rules." + master + ".load-balance-algorithm-type");
+            if (Strings.isNotEmpty(masterSlaveLoadBalanceAlgorithmType)) {
+                if (Objects.nonNull(MasterSlaveLoadBalanceAlgorithmType.valueOf(masterSlaveLoadBalanceAlgorithmType))) {
+                    masterSlaveLoadBalanceAlgorithm = MasterSlaveLoadBalanceAlgorithmType.valueOf(masterSlaveLoadBalanceAlgorithmType).getAlgorithm();
+                }
+            } else {
+                String masterSlaveLoadBalanceAlgorithmClass = env.getProperty("sharding.jdbc.config.sharding.master-slave-rules." + master + ".load-balance-algorithm-class-name");
+                try {
+                    masterSlaveLoadBalanceAlgorithm = (MasterSlaveLoadBalanceAlgorithm) Class.forName(masterSlaveLoadBalanceAlgorithmClass).newInstance();
+                } catch (Exception e) {
+                    log.error("【初始化数据源】master slave config error, master {}", master, e);
+                    masterSlaveLoadBalanceAlgorithm = MasterSlaveLoadBalanceAlgorithmType.getDefaultAlgorithmType().getAlgorithm();
+                }
+            }
+            masterSlaveRuleConfig.setLoadBalanceAlgorithm(masterSlaveLoadBalanceAlgorithm);
+            masterSlaveRuleConfigurations.add(masterSlaveRuleConfig);
+        });
+
+        return masterSlaveRuleConfigurations;
     }
 
     /**
