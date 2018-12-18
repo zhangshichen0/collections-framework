@@ -71,8 +71,12 @@ public class ShardingConfig {
             MasterSlaveLoadBalanceAlgorithm masterSlaveLoadBalanceAlgorithm = MasterSlaveLoadBalanceAlgorithmType.getDefaultAlgorithmType().getAlgorithm();
             String masterSlaveLoadBalanceAlgorithmType = env.getProperty("sharding.jdbc.config.sharding.master-slave-rules." + master + ".load-balance-algorithm-type");
             if (Strings.isNotEmpty(masterSlaveLoadBalanceAlgorithmType)) {
-                if (Objects.nonNull(MasterSlaveLoadBalanceAlgorithmType.valueOf(masterSlaveLoadBalanceAlgorithmType))) {
-                    masterSlaveLoadBalanceAlgorithm = MasterSlaveLoadBalanceAlgorithmType.valueOf(masterSlaveLoadBalanceAlgorithmType).getAlgorithm();
+                try {
+                    if (Objects.nonNull(MasterSlaveLoadBalanceAlgorithmType.valueOf(masterSlaveLoadBalanceAlgorithmType.toUpperCase()))) {
+                        masterSlaveLoadBalanceAlgorithm = MasterSlaveLoadBalanceAlgorithmType.valueOf(masterSlaveLoadBalanceAlgorithmType).getAlgorithm();
+                    }
+                } catch (IllegalArgumentException e) {
+
                 }
             } else {
                 String masterSlaveLoadBalanceAlgorithmClass = env.getProperty("sharding.jdbc.config.sharding.master-slave-rules." + master + ".load-balance-algorithm-class-name");
@@ -97,12 +101,16 @@ public class ShardingConfig {
      */
     private Map<String, DataSource> createDataSourceMap() {
         final Map<String, DataSource> result = new HashMap<>();
-        String master0 = environment.getProperty("sharding.jdbc.datasource.master0.name");
-        String master0Slaves = environment.getProperty("sharding.jdbc.datasource.master0slaves.names");
-        result.put(master0, createDataSource(environment, master0));
-        Arrays.stream(master0Slaves.split(",")).forEach(slave -> {
-            result.put(slave, createDataSource(environment, slave));
+        String masterNames = environment.getProperty("sharding.jdbc.datasource.master.names");
+
+        Arrays.stream(masterNames.split(",")).forEach(master -> {
+            String masterSlaveNames = environment.getProperty("sharding.jdbc.datasource.slave."  + master + ".names");
+            result.put(master, createDataSource(environment, master));
+            Arrays.stream(masterSlaveNames.split(",")).forEach(slave -> {
+                result.put(slave, createDataSource(environment, slave));
+            });
         });
+
         return result;
     }
 
