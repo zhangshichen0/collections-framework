@@ -9,6 +9,7 @@ import io.shardingsphere.core.constant.properties.ShardingPropertiesConstant;
 import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -38,7 +39,7 @@ public class ShardingConfig {
      * @return
      * @throws SQLException
      */
-    @Bean
+    @Bean("shardingDataSource")
     public DataSource shardingDataSource() throws SQLException {
         try {
             ShardingRuleConfiguration shardingRuleConfiguration = new ShardingRuleConfiguration();
@@ -99,7 +100,7 @@ public class ShardingConfig {
      * @return
      */
     @Bean
-    public DataSourceTransactionManager transactionManager(DataSource ds) {
+    public DataSourceTransactionManager transactionManager(@Qualifier("shardingDataSource") DataSource ds) {
         return new DataSourceTransactionManager(ds);
     }
 
