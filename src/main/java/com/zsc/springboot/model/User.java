@@ -3,6 +3,8 @@ package com.zsc.springboot.model;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -67,6 +69,7 @@ public class User implements Serializable {
     /**
      * 修改时间
      */
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyTime;
 
     /**

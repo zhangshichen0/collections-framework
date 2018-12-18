@@ -29,3 +29,5 @@
     
 * **利用[mybatis-plus](https://mybatis.plus/)继承[mybatis](http://www.mybatis.org/mybatis-3/zh/index.html)**
     * **CodeGenerator.java**为mybatis-plus提供的代码生成器，能够按照用户指定策略将文件生成到指定包下
+    
+* **集成[sharding-jdbc](https://github.com/sharding-sphere/sharding-sphere)实现分库分表+读写分离**

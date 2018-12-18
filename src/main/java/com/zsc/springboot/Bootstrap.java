@@ -64,7 +64,9 @@ public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
         fastJsonConfig.setSerializerFeatures(
                 SerializerFeature.WriteNullListAsEmpty,
                 SerializerFeature.WriteNullStringAsEmpty,
-                SerializerFeature.WriteNullNumberAsZero);
+                SerializerFeature.WriteNullNumberAsZero,
+                SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteDateUseDateFormat);
 
         fastJsonHttpMessageConverter.setSupportedMediaTypes(Lists.newArrayList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
         converters.add(fastJsonHttpMessageConverter);
