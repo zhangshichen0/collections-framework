@@ -31,3 +31,4 @@
     * **CodeGenerator.java**为mybatis-plus提供的代码生成器，能够按照用户指定策略将文件生成到指定包下
     
 * **集成[sharding-jdbc](https://github.com/sharding-sphere/sharding-sphere)实现分库分表+读写分离**
+    * 虽然sharding-jdbc提供了与spring-boot的集成包，但是并非官方提供，切配置混乱，故采用java config的方式进行配置，既能了解其组件间的逻辑关系，又能清楚的了解配置
