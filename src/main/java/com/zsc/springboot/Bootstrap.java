@@ -8,6 +8,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.google.common.collect.Lists;
 import com.zsc.springboot.commons.DateConverter;
+import com.zsc.springboot.web.BaseInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -94,6 +95,7 @@ public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new BaseInterceptor()).addPathPatterns("/collections-framework/api/**");
     }
 
     /**
