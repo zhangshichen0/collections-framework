@@ -134,7 +134,7 @@ public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
      * 注册一个StatViewServlet
      * @return
      */
-    @Profile({"dev,swagger"})
+    @Profile({"dev", "swagger"})
     @Bean
     public ServletRegistrationBean druidStatViewServlet(){
         //org.springframework.boot.context.embedded.ServletRegistrationBean提供类的进行注册.
@@ -156,7 +156,7 @@ public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
      * 注册一个：filterRegistrationBean
      * @return
      */
-    @Profile({"dev,swagger"})
+    @Profile({"dev", "swagger"})
     @Bean
     public FilterRegistrationBean druidStatFilter(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
