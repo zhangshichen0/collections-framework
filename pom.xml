@@ -45,13 +45,6 @@
             <id>unidal.releases</id>
             <url>http://unidal.org/nexus/content/repositories/releases/</url>
         </repository>
-
-        <repository>
-            <id>central</id>
-            <name>Maven2 Central Repository</name>
-            <layout>default</layout>
-            <url>http://repo1.maven.org/maven2</url>
-        </repository>
     </repositories>
 
     <build>
@@ -149,6 +142,10 @@
                 <exclusion>
                     <artifactId>classmate</artifactId>
                     <groupId>com.fasterxml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>snakeyaml</artifactId>
+                    <groupId>org.yaml</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -319,6 +316,10 @@
                     <artifactId>spring-context</artifactId>
                     <groupId>org.springframework</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>byte-buddy</artifactId>
+                    <groupId>net.bytebuddy</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -365,15 +366,22 @@
         <!-- 继承sharding-jdbc实现分库分表 -->
         <dependency>
             <groupId>io.shardingsphere</groupId>
-            <artifactId>sharding-core</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>io.shardingsphere</groupId>
             <artifactId>sharding-jdbc-core</artifactId>
             <version>3.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- end -->
 
@@ -392,5 +400,17 @@
         </dependency>
         <!-- mapper-plus end -->
 
+        <!-- 流量控制jar sentinel -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <version>0.2.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-apollo</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
 </project>

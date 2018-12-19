@@ -5,6 +5,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.google.common.collect.Lists;
 import com.zsc.springboot.commons.DateConverter;
 import org.springframework.beans.BeansException;
@@ -32,6 +33,7 @@ import java.util.List;
  * @create 2018-12-07
  * @desc
  */
+@EnableApolloConfig
 @SpringBootApplication(scanBasePackages = "com.zsc.springboot")
 @EnableConfigurationProperties
 @EnableWebMvc
