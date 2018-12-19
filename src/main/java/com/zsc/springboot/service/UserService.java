@@ -1,5 +1,8 @@
 package com.zsc.springboot.service;
 
+import com.alibaba.csp.sentinel.EntryType;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,6 +48,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @param status
      * @return
      */
+    @SentinelResource(value = "UserService.selectPageVo", entryType = EntryType.OUT, blockHandler = "exceptionHandler")
     public List<User> selectPageVo(int next, int limit, Integer status) {
 
         Page<User> page = new Page<>(next / limit + 1, limit);
@@ -74,6 +79,15 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         user.setModifyTime(LocalDateTime.now());
         user.setStatus(1);
         return super.save(user);
+    }
+
+    /**
+     * Block 异常处理函数，参数最后多一个 BlockException，其余与原函数一致.
+     */
+    public List<User> exceptionHandler(int next, int limit, Integer status, BlockException ex) {
+        // Do some log here.
+        ex.printStackTrace();
+        return Collections.emptyList();
     }
 
 }
