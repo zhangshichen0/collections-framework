@@ -5,6 +5,7 @@
     * 使用[apollo](https://github.com/ctripcorp/apollo)实现了刷新redis配置，并重新初始化RedisClient
     * 使用apollo实现了实时刷新配置参数，并使用@ApolloConfigChangeListener实现对配置变化的监控，使用@ApolloJsonValue实现复杂配置的动态变更
     * **更多apollo的使用可以借鉴** [apollo-use-cases](https://github.com/ctripcorp/apollo-use-cases)
+    * [apollo控制台](http://127.0.0.1:8070/)
 * **演示了springboot和xxl-job结合使用**
     * xxl-job与elastic-job实现不同
         * [elastic-job](https://github.com/elasticjob/elastic-job-lite)是轻量级无中心化的分布式定时任务解决方案，依赖于zookeeper实现服务注册，分布式调度，主节点选举等功能
@@ -32,3 +33,9 @@
     
 * **集成[sharding-jdbc](https://github.com/sharding-sphere/sharding-sphere)实现分库分表+读写分离**
     * 虽然sharding-jdbc提供了与spring-boot的集成包，但是并非官方提供，切配置混乱，故采用java config的方式进行配置，既能了解其组件间的逻辑关系，又能清楚的了解配置
+    
+* **集成[alibaba sentinel](https://github.com/alibaba/Sentinel)用于实现限流，熔断，降级控制**
+    * alibaba针对sentinel提供了各种数据源，即客户端使用者能够通过数据源动态配置规则，动态限流降级熔断等
+    * 该项目中使用Apollo作为数据源，在类SentinelApolloDataSourceConfig中进行初始化
+    * 可以使用abtest压测工具请求查看请求结果，确定sentinel是否生效,[abtest命令使用](https://www.jianshu.com/p/5fcf5e51f81e)
+    * [sentinel控制台](http://127.0.0.1:8183/#/dashboard/home)

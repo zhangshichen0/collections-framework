@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Profiles;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
@@ -133,6 +134,7 @@ public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
      * 注册一个StatViewServlet
      * @return
      */
+    @Profile({"dev,swagger"})
     @Bean
     public ServletRegistrationBean druidStatViewServlet(){
         //org.springframework.boot.context.embedded.ServletRegistrationBean提供类的进行注册.
@@ -154,6 +156,7 @@ public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
      * 注册一个：filterRegistrationBean
      * @return
      */
+    @Profile({"dev,swagger"})
     @Bean
     public FilterRegistrationBean druidStatFilter(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
