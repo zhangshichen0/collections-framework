@@ -1,5 +1,6 @@
 package com.zsc.springboot;
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import com.zsc.springboot.commons.Result;
 import com.zsc.springboot.commons.swagger2.SwaggerParamType;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ import java.util.List;
  * @desc
  */
 @Configuration
+@EnableSwaggerBootstrapUI
 @EnableSwagger2
 @Profile("swagger")
 public class Swagger2Config {

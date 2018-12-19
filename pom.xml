@@ -323,11 +323,19 @@
             </exclusions>
         </dependency>
 
-        <dependency>
+       <!-- <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger2-version}</version>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/swagger-bootstrap-ui -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>1.8.8</version>
         </dependency>
+
         <!-- 集成swagger2 end -->
 
         <!-- 集成点评开源的日志分析工具cat start -->

@@ -105,7 +105,7 @@ public class Bootstrap implements WebMvcConfigurer, ApplicationContextAware {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //swagger静态页面和样式加载，只在激活的profile包含swagger时，才加载资源文件
         if (applicationContext.getEnvironment().acceptsProfiles(Profiles.of("swagger"))) {
-            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+            registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
             registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
         }
     }
