@@ -21,6 +21,7 @@
     * swagger2能够自动扫描指定包下的api，生成api文档
     * 项目中指定，只有激活的profile中包含swagger时，才加载swagger2资源文件并初始化Swagger2Config Bean
     * [swagger2注解说明](https://github.com/swagger-api/swagger-core/wiki/Annotations)
+    * 使用[swagger-bootstrap-ui](https://github.com/xiaoymin/Swagger-Bootstrap-UI)替换官方的swagger-ui
     * **问题**
         * 本项目集成为spring-boot2.1.0RELEASE + swagger2.9.2,但是spring-boot2.*以上，只能实现WebMvcConfigurer并实现方法addResourceHandlers才能够加载swagger2资源文件😓，解决方案：[springboot2.x以上集成swagger2出现404解决](https://www.jianshu.com/p/04dd5ff82dad)
     
