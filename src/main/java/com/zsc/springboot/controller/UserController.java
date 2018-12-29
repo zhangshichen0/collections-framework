@@ -47,6 +47,21 @@ public class UserController {
         return new Result<>(userService.getById(uid));
     }
 
+    /**
+     * 根据用户id获取用户详细信息
+     *
+     * @param uid
+     * @return
+     */
+    @ApiOperation(value="根据用户id获取用户详细信息", notes="必须是用户uid")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType= SwaggerParamType.PATH, name = "uid", value = "用户id", required = true, dataType = "Long", defaultValue = "1")
+    })
+    @GetMapping("{uid}/detail")
+    public Result<Object> userByUid(@PathVariable long uid) {
+        return new Result<>(userService.selectUserByUid(uid));
+    }
+
 
     /**
      * 根据用户id获取用户详细信息

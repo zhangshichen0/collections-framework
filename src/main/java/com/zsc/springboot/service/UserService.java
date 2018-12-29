@@ -67,6 +67,16 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     /**
+     * 通过uid获取用户信息
+     *
+     * @param uid
+     * @return
+     */
+    public User selectUserByUid(long uid) {
+        return userMapper.getUserByUid(uid);
+    }
+
+    /**
      * 插入字段
      *
      * @return
