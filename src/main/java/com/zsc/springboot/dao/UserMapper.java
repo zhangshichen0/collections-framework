@@ -21,15 +21,6 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper extends BaseMapper<User> {
 
     /**
-     * 通过nick获取用户信息
-     *
-     * @param nick
-     * @return
-     */
-    @Select(value = "select * from user where nick = #{nick}")
-    User getUserByNick(@Param("nick") String nick);
-
-    /**
      * 分页查询
      *
      * @param page
@@ -46,7 +37,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @param uid
      * @return
      */
-    @Results({
+    @Results(id="userResultMap", value = {
             @Result(property = "uid", column = "uid", jdbcType = JdbcType.BIGINT, id = true),
             @Result(property = "nick", column = "nick"),
             @Result(property = "photo", column = "photo"),
@@ -62,4 +53,16 @@ public interface UserMapper extends BaseMapper<User> {
     })
     @SelectProvider(type = UserSelectProvider.class, method = "getUserByUidWithParam")
     User getUserByUid(@Param("uid") long uid);
+
+
+    /**
+     * 通过nick获取用户信息
+     *
+     * @param nick
+     * @return
+     */
+    @Select(value = "select * from user where nick = #{nick}")
+    @ResultMap(value = "userResultMap")
+    User getUserByNick(@Param("nick") String nick);
+
 }
