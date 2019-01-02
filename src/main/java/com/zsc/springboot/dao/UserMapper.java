@@ -6,6 +6,7 @@ import com.zsc.springboot.dao.provider.UserSelectProvider;
 import com.zsc.springboot.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -46,7 +47,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     @Results({
-            @Result(property = "uid", column = "uid"),
+            @Result(property = "uid", column = "uid", jdbcType = JdbcType.BIGINT, id = true),
             @Result(property = "nick", column = "nick"),
             @Result(property = "photo", column = "photo"),
             @Result(property = "age", column = "age"),
